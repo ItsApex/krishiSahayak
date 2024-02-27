@@ -1,7 +1,11 @@
+"use client";
 import React from "react";
 import TextField from "@mui/material/TextField";
 import firebase from "firebase/app";
 import "firebase/auth";
+import MapCard from "../components/Map/map";
+import { Button } from "@mui/material";
+
 function Mappage() {
   return (
     <div className="h-screen bg-green-300 flex flex-row ">
@@ -30,8 +34,8 @@ function Mappage() {
           }}
         />
       </div>
-      <div className="w-1/2  flex flex-row justify-center items-center  h-full">
-        <div className="bg-green-800 w-[90%] h-4/5"></div>
+      <div className="flex flex-row justify-center items-center h-full w-1/2">
+        <MapCard />
       </div>
     </div>
   );

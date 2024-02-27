@@ -1,0 +1,24 @@
+/* MapCard.css */
+
+.map-container {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .marker {
+    background-color: #4caf50;
+    border: 1px solid blue;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  
