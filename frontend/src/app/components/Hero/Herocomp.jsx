@@ -12,7 +12,6 @@ function Herocomp(props) {
             alt="Weather Icon"
             width={32}
             height={32}
-
           />
         );
       case "crop_prediction":
@@ -48,8 +47,10 @@ function Herocomp(props) {
     //   <span className="ml-2 ">{props.feature.replace(/_/g, " ")}</span>
     // </div>
 
-    <div className="flex flex-row justify-center items-center gap-10 text-white text-3xl font-bold ">
-      <p>{props.feature}</p>
+    <div className="flex flex-row justify-evenly items-center  text-white text-2xl font-bold bg-white  ">
+      <p className="bg-white text-green-700 p-3 w-56 h-20 flex flex-row justify-center items-center font-normal  rounded-lg">
+        {props.feature}
+      </p>
     </div>
   );
 }

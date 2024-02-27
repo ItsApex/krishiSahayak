@@ -21,7 +21,7 @@ function Hero() {
         <div className="text-6xl font-bold">
           Beyond Farming, We are creating <br></br> fresh experiences
         </div>
-        <div className="text-3xl">
+        <div className="text-2xl">
           Predictive analytics in agriculture involves the use of algorithms{" "}
           <br></br> and machine learning models to analyze vast amounts of data
           collected from farms.
