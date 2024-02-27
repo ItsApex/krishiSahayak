@@ -1,3 +1,4 @@
+"use client";
 // MapCard.js
 
 import React, { useEffect, useRef, useState } from "react";
@@ -7,11 +8,9 @@ import "./MapCard.css";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYXBleDEyIiwiYSI6ImNsdDRnbW1vcDAycTYya291eXB6aGRhZm0ifQ.XRq3sqOfD0wrSZoJOCU5kw";
 
-const MapCard = () => {
-  const [land, setLand] = useState([]);
+const MapCard = ({ onCoordinateClick }) => {
   const mapContainerRef = useRef(null);
   const [map, setMap] = useState(null);
-  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     if (!map) return;
@@ -23,13 +22,13 @@ const MapCard = () => {
 
       console.log("Clicked at:", newCoordinate);
 
-      setLand((prev) => [...prev, newCoordinate]);
+      onCoordinateClick(newCoordinate);
     };
 
     map.on("click", handleClick);
 
     return () => map.off("click", handleClick);
-  }, [map]);
+  }, [map, onCoordinateClick]);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -58,18 +57,6 @@ const MapCard = () => {
       }
     );
   }, []);
-
-  useEffect(() => {
-    if (map && land.length > 0) {
-      // Clear existing markers
-      markers.forEach((marker) => marker.remove());
-      // Add new markers
-      const newMarkers = land.map((coordinate) => {
-        return new mapboxgl.Marker().setLngLat(coordinate).addTo(map);
-      });
-      setMarkers(newMarkers);
-    }
-  }, [map, land]);
 
   return <div className="map-container" ref={mapContainerRef} />;
 };
