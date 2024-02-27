@@ -7,7 +7,7 @@ import Navbar from "../components/Hero/Navbar";
 function Landing() {
   return (
     <div className="w-full">
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <Box />
       <Footer />

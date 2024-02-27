@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import MapCard from "../components/Map/map";
 import { Button } from "@mui/material";
 
 function Mappage() {
   const [coordinates, setCoordinates] = useState([]);
+  const [names, setNames] = useState(["", "", "", ""]); // Initialize state for 4 names
 
   // Function to handle adding coordinates
   const handleAddCoordinate = (coordinate) => {
@@ -19,10 +20,8 @@ function Mappage() {
     setCoordinates([]);
   };
 
-  const [names, setNames] = useState(["", "", "", ""]); // Initialize state for 4 names
-
+  // Function to handle changes in name text fields
   const handleNameChange = (index, value) => {
-    // Update the name at the specified index in the state array
     setNames((prevNames) => {
       const updatedNames = [...prevNames];
       updatedNames[index] = value;
@@ -30,46 +29,56 @@ function Mappage() {
     });
   };
 
+  // Function to send data to backend
   const handleSend = () => {
-    // Call your API with the data in the text fields
+    // Filter out empty names
+    const filteredNames = names.filter((name) => name.trim() !== "");
+
+    // Prepare data to send to backend
     const dataToSend = {
-      names: names.filter((name) => name.trim() !== ""), // Remove empty names
+      names: filteredNames,
+      coordinates: coordinates,
     };
-    // Replace the console.log with your API call
+
+    // Send data to backend (replace console.log with actual API call)
     console.log("Data to send:", dataToSend);
+
+    // Reset names after sending data
+    setNames(["", "", "", ""]);
   };
 
   return (
     <div className="h-screen bg-green-300 flex flex-row ">
-      <div className="w-1/2 flex flex-col  justify-center items-center  gap-5 h-full bg-red-100">
-        <TextField
-          id="demo-helper-text-aligned"
-          label="Name"
-          sx={{
-            width: "400px",
-          }}
-        />
-        <TextField
-          id="demo-helper-text-aligned"
-          label="Name"
-          sx={{
-            width: "400px",
-          }}
-        />
-        <TextField
-          id="demo-helper-text-aligned"
-          label="Name"
-          sx={{
-            width: "400px",
-          }}
-        />
+      <div className="w-1/2 flex flex-col justify-center items-center gap-5 h-full bg-red-100">
+        {/* Render TextFields for names */}
+        {/* {names.map((name, index) => (
+          <TextField
+            key={index}
+            id={`name-${index}`}
+            label={`Name ${index + 1}`}
+            value={name}
+            onChange={(e) => handleNameChange(index, e.target.value)}
+            sx={{
+              width: "400px",
+            }}
+          />
+        ))} */}
+
+        {/* Render TextFields for coordinates */}
+        {coordinates.map((coordinate, index) => (
+          <TextField
+            key={index}
+            id={`coordinate-${index}`}
+            label={`Coordinate ${index + 1}`}
+            value={JSON.stringify(coordinate)}
+            sx={{
+              width: "400px",
+            }}
+            disabled // Disable editing
+          />
+        ))}
+
         <div>
-          <h2>Coordinates:</h2>
-          <ul>
-            {coordinates.map((coordinate, index) => (
-              <li key={index}>{JSON.stringify(coordinate)}</li>
-            ))}
-          </ul>
           {coordinates.length === 4 && (
             <Button
               onClick={handleRemoveCoordinate}
@@ -80,6 +89,9 @@ function Mappage() {
             </Button>
           )}
         </div>
+        <button onClick={handleSend} className="bg-black p-4 rounded">
+          Send
+        </button>
       </div>
 
       <div className="flex flex-row justify-center items-center h-full w-1/2">
