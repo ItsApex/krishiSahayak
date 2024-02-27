@@ -20,7 +20,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="  w-full z-20 top-0 left-0 lg:px-12  pt-5 ">
+    <nav className="  w-full z-40 top-0 left-0 lg:px-12  pt-5 ">
       <div className="flex flex-wrap items-center justify-between lg:px-8 sm:px-4 px-5  py-4">
         <a href="/">
           <p className="flex items-center justify-between">
