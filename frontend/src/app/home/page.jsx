@@ -5,6 +5,8 @@ import Navbar from "../components/Hero/Navbar";
 import MapCard from "../components/Map/map";
 import Navbar_Home from "./Navbar_home";
 function Weather() {
+  // get data from localstorage
+  
   return (
     <div className=" h-screen">
       <Navbar_Home />
