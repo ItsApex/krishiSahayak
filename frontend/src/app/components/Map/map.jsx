@@ -8,7 +8,7 @@ import "./MapCard.css";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiYXBleDEyIiwiYSI6ImNsdDRnbW1vcDAycTYya291eXB6aGRhZm0ifQ.XRq3sqOfD0wrSZoJOCU5kw";
 
-const MapCard = ({ onCoordinateClick }) => {
+const MapCard = ({ onCoordinateClick, zoom }) => {
   const mapContainerRef = useRef(null);
   const [map, setMap] = useState(null);
 
@@ -47,7 +47,7 @@ const MapCard = ({ onCoordinateClick }) => {
           container: mapContainerRef.current,
           style: "mapbox://styles/apex12/clt4h0ou600qf01qu7ikm13ew/",
           center: [longitude, latitude],
-          zoom: 10,
+          zoom: zoom ? zoom : 10,
         });
 
         setMap(mapInstance);
