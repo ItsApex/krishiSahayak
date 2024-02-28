@@ -33,18 +33,80 @@ function Mappage() {
   const handleSend = () => {
     // Filter out empty names
     const filteredNames = names.filter((name) => name.trim() !== "");
-
+  
     // Prepare data to send to backend
     const dataToSend = {
       names: filteredNames,
-      coordinates: coordinates,
+      coordinates: coordinates.map(coord => ({ lat: coord.lat, lon: coord.lon }))
     };
 
-    // Send data to backend (replace console.log with actual API call)
-    console.log("Data to send:", dataToSend);
+    const points = [
+      { "lat": coordinates[0][0], "lon": coordinates[0][1] },
+      { "lat": coordinates[1][0], "lon": coordinates[1][1] },
+      { "lat": coordinates[2][0], "lon": coordinates[2][1] },
+      { "lat": coordinates[3][0], "lon": coordinates[3][1] }
+    ];
+    const pointreq = { "lat": coordinates[0][0], "lon": coordinates[0][1] };
 
+    console.log(JSON.stringify({
+      pointreq
+    }));
+  
+    // Send data to backend
+    fetch('http://127.0.0.1:2000/curr_loc_data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        points
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Response received:', data);
+
+      // save it to local storage
+      localStorage.setItem('curWeatherData', JSON.stringify(data));
+      // Reset names after sending data
+      setNames(["", "", "", ""]);
+    })
+    .catch(error => {
+      console.error('There was a problem with your fetch operation:', error);
+    });
+
+    // Send data to backend
+  fetch('http://127.0.0.1:2000/seven_day_forecast', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      pointreq
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Response received:', data);
+
+    // save it to local storage
+    localStorage.setItem('curWeatherForecast', JSON.stringify(data));
     // Reset names after sending data
     setNames(["", "", "", ""]);
+  })
+  .catch(error => {
+    console.error('There was a problem with your fetch operation:', error);
+  });
   };
 
   return (
