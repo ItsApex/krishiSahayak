@@ -6,6 +6,8 @@ import MapCard from "../components/Map/map";
 import Navbar_Home from "./Navbar_home";
 import TextField from "@mui/material/TextField";
 function Weather() {
+  // get data from localstorage
+  
   return (
     <div className=" h-screen">
       <Navbar_Home />

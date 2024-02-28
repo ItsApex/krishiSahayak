@@ -1,13 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import MapCard from "../components/Map/map";
 import { Button } from "@mui/material";
-
+import { useRouter } from 'next/navigation'
 function Mappage() {
   const [coordinates, setCoordinates] = useState([]);
   const [names, setNames] = useState(["", "", "", ""]); // Initialize state for 4 names
+  const [firstcall, setfirstcall] = useState(false);
+  const [secCall, setsecCall] = useState(false);
 
+  const [forecastData, setForecastData] = useState(null);
+  const [currentData, setCurrentData] = useState(null);
+  
+  const router = useRouter()
   // Function to handle adding coordinates
   const handleAddCoordinate = (coordinate) => {
     if (coordinates.length < 4) {
@@ -71,13 +77,15 @@ function Mappage() {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        setfirstcall(true);
         return response.json();
       })
       .then((data) => {
         console.log("Response received:", data);
 
         // save it to local storage
-        localStorage.setItem("curWeatherData", JSON.stringify(data));
+        localStorage.setItem("currentData", JSON.stringify(data));
+        setCurrentData(data);
         // Reset names after sending data
         setNames(["", "", "", ""]);
       })
@@ -99,13 +107,15 @@ function Mappage() {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        setsecCall(true);
         return response.json();
       })
       .then((data) => {
         console.log("Response received:", data);
 
         // save it to local storage
-        localStorage.setItem("curWeatherForecast", JSON.stringify(data));
+        localStorage.setItem("forecastData", JSON.stringify(data));
+        setForecastData(data)
         // Reset names after sending data
         setNames(["", "", "", ""]);
       })
@@ -114,6 +124,13 @@ function Mappage() {
       });
   };
 
+
+  useEffect(() => {
+    if(firstcall == true && secCall == true){
+
+      router.push('/home')
+    }
+  },[firstcall, secCall])
   return (
     <div className="h-screen bg-green-300 flex flex-row ">
       <div className="w-1/2 flex flex-col justify-center items-center gap-5 h-full bg-red-100">
