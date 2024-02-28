@@ -4,13 +4,40 @@ import Bento from "./Bento";
 import Navbar from "../components/Hero/Navbar";
 import MapCard from "../components/Map/map";
 import Navbar_Home from "./Navbar_home";
+import TextField from "@mui/material/TextField";
 function Weather() {
   return (
     <div className=" h-screen">
       <Navbar_Home />
       <div className="flex flex-row justify-center items-center bg-white h-[80vh]">
-        <div className="text-black flex flex-col w-[50vw] justify-center items-center ">
+        <div className="text-black flex flex-col w-[50vw] justify-center items-center w-full">
           <div className="w-3/5  flex flex-wrap justify-center items-center  gap-10 ">
+            <div className="flex flex-row justify-evenly items-center w-full">
+              <TextField
+                helperText="Nitrogen"
+                id="demo-helper-text-aligned"
+                label="N"
+              />
+
+              <TextField
+                helperText="Phosphorous"
+                id="demo-helper-text-aligned"
+                label="P"
+              />
+              <TextField
+                helperText="Potassium"
+                id="demo-helper-text-aligned"
+                label="P"
+              />
+              <TextField
+                helperText="PH"
+                id="demo-helper-text-aligned"
+                label="pH"
+              />
+              <br />
+            </div>
+            <button className="bg-black text-white p-4 rounded-md">Send</button>
+
             <Bento />
             <Bento />
             <Bento />
