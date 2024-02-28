@@ -44,9 +44,6 @@ function Hero() {
           <Herocomp feature="crop prediction" />
           <Herocomp feature="planting" />
           <Herocomp feature="harvesting" />
-          {/* <SessionProvider>
-            <Signin />
-          </SessionProvider> */}
         </div>
       </div>
     </div>
