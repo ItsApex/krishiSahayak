@@ -1,45 +1,36 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Weathercomp from "../components/Weather/weather";
 import Bento from "./Bento";
 import Navbar from "../components/Hero/Navbar";
 import MapCard from "../components/Map/map";
 import Navbar_Home from "./Navbar_home";
 import TextField from "@mui/material/TextField";
+
 function Weather() {
-  // get data from localstorage
-  
+  // get data from localstorage currentData
+  const [currData, setCurrData] = useState(null);
+  const [currForecast, setCurrForecast] = useState(null);
+
+  useEffect(()=>{
+    console.log("fetching from local storage");
+    const curr = localStorage.getItem('currentData');
+    const forecast = localStorage.getItem('forecastData');
+
+    setCurrData(curr);
+    setCurrForecast(forecast);
+    
+    console.log("fetched from localstorage");
+    console.log("currdata is:",currData);
+    console.log("forecast is:",currForecast);
+  },[])
+
   return (
     <div className=" h-screen">
       <Navbar_Home />
       <div className="flex flex-row justify-center items-center bg-white h-[80vh]">
-        <div className="text-black flex flex-col w-[50vw] justify-center items-center w-full">
+        <div className="text-black flex flex-col w-[50vw] justify-center items-center ">
           <div className="w-3/5  flex flex-wrap justify-center items-center  gap-10 ">
-            <div className="flex flex-row justify-evenly items-center w-full">
-              <TextField
-                helperText="Nitrogen"
-                id="demo-helper-text-aligned"
-                label="N"
-              />
-
-              <TextField
-                helperText="Phosphorous"
-                id="demo-helper-text-aligned"
-                label="P"
-              />
-              <TextField
-                helperText="Potassium"
-                id="demo-helper-text-aligned"
-                label="P"
-              />
-              <TextField
-                helperText="PH"
-                id="demo-helper-text-aligned"
-                label="pH"
-              />
-              <br />
-            </div>
-            <button className="bg-black text-white p-4 rounded-md">Send</button>
-
             <Bento />
             <Bento />
             <Bento />
